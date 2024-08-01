@@ -1,3 +1,4 @@
+//Funciones que modifican web
 function convertirPolarARectangular() {
     const r = parseFloat(document.getElementById('r').value);
     const theta = parseFloat(document.getElementById('theta').value);
@@ -6,12 +7,9 @@ function convertirPolarARectangular() {
         document.getElementById('resultadoPolar').innerText = 'Por favor, ingrese valores válidos.';
         return;
     }
+    [xx,yy]=polarARectagngular(r,theta)
 
-    const radianes = theta * (Math.PI / 180);
-    const x = r * Math.cos(radianes);
-    const y = r * Math.sin(radianes);
-
-    document.getElementById('resultadoPolar').innerText = `Coordenadas Rectangulares: X = ${x.toFixed(2)}, Y = ${y.toFixed(2)}`;
+    document.getElementById('resultadoPolar').innerText = `Coordenadas Rectangulares: X = ${xx.toFixed(2)}, Y = ${yy.toFixed(2)}`;
 }
 
 function convertirRectangularAPolar() {
@@ -22,9 +20,23 @@ function convertirRectangularAPolar() {
         document.getElementById('resultadoRectangular').innerText = 'Por favor, ingrese valores válidos.';
         return;
     }
+    
+    [ra,the]=rectangularAPolar(x,y);
+    document.getElementById('resultadoRectangular').innerText = `Coordenadas Polares: Radio = ${ra.toFixed(2)}, Ángulo = ${the.toFixed(2)}°`;
+}
+//Funciones generales
+function polarARectagngular(r,theta) {
+
+    const radianes = theta * (Math.PI / 180);
+    const x = r * Math.cos(radianes);
+    const y = r * Math.sin(radianes);
+
+    return  [x,y]
+}
+function rectangularAPolar(x,y) {
 
     const r = Math.sqrt(x * x + y * y);
     const theta = Math.atan2(y, x) * (180 / Math.PI);
 
-    document.getElementById('resultadoRectangular').innerText = `Coordenadas Polares: Radio = ${r.toFixed(2)}, Ángulo = ${theta.toFixed(2)}°`;
+    return  [r,theta]
 }
